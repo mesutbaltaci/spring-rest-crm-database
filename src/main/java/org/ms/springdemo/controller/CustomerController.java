@@ -3,6 +3,7 @@ package org.ms.springdemo.controller;
 import java.util.List;
 
 import org.ms.springdemo.entity.Customer;
+import org.ms.springdemo.rest.CustomerNotFoundException;
 import org.ms.springdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,10 @@ public class CustomerController {
 	
 	@GetMapping("/customers/{customerId}")
 	public Customer getCustomer(@PathVariable int customerId) {
-		
-		return customerService.getCustomer(customerId);
+		Customer theCustomer = customerService.getCustomer(customerId);
+		if (theCustomer==null) {
+			throw new CustomerNotFoundException("Costomer id not found..." + customerId);
+		}
+		return theCustomer;
 	}
 }
