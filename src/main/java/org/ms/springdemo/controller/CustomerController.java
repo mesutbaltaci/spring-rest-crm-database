@@ -6,6 +6,7 @@ import org.ms.springdemo.entity.Customer;
 import org.ms.springdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,11 @@ public class CustomerController {
 	public List<Customer> getCustomer() {
 		System.out.println(customerService.getCustomers());
 		return customerService.getCustomers();
+	}
+	
+	@GetMapping("/customers/{customerId}")
+	public Customer getCustomer(@PathVariable int customerId) {
+		
+		return customerService.getCustomer(customerId);
 	}
 }
